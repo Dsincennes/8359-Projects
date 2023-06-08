@@ -1,0 +1,38 @@
+﻿@model dynamic
+
+@{
+    ViewData["Title"] = "Jumping Monkeys";
+}
+
+<form asp-controller="Home" asp-action="SongForm" method="get">
+    <div>
+        <button type="submit">Play Again</button>
+    </div>
+</form>
+
+@for (int i = Model; i >= 0; i--)
+{
+    string heShe = (i % 2 == 0) ? "his" : "her";
+    if (i == 0)
+    {
+        <p>
+            No little monkeys jumping on the bed
+            <br />
+            None fell off and bumped their head
+            <br />
+            Mama called the doctor and the doctor said
+            <br />
+            "Put those monkeys back in bed!"
+        </p>
+        return;
+    }
+    <p>
+        @i little monkeys jumping on the bed
+        <br />
+        One fell off and bumped @heShe head
+        <br />
+        Mama called the doctor and the doctor said
+        <br />
+        "No more monkeys jumping on the bed!"
+    </p>
+}

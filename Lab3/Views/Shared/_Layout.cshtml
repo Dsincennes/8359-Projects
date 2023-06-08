@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/css/StyleSheet.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Lab 3</h1>
+        <p>My name is: Sincennes, Donald</p>
+        <br />
+        <br />
+        @Html.ActionLink("Home", "Index", "Home")
+        @Html.ActionLink("Show the song!", "SongForm", "Home")
+        @Html.ActionLink("Students", "CreateStudent", "Home")
+    </header>
+    <div class="content">
+        @RenderBody()
+    </div>
+    <footer>
+        <h3>Footer Questions / Answers</h3>
+        <p>
+            First step I took for adding the css file was goign to the professors sample code as explained in the lab and copied the styles he used.
+            Secondly I made a folder inside wwwroot called css, then added a new item and selected css style sheet and pasted the contents inside.
+
+            <br />
+            <br />
+
+            Second step, I made a folder called Shared inside Views and added a file called _Layout by using VS Add->New Item…->Razor Layout inside the folder.
+
+            <br />
+            <br />
+
+            A. The _layout.cshtml file is a master template that all other views can inherit from.
+            This becomes very useful when having multiple pages so that all other pages be be consistent.
+            The layout generally has a header, some type of nav bar, and a footer.
+            Lastly, we include a RenderBody method that acts as a placeholder for every single view that wants to include its seperate content.
+
+            <br />
+            <br />
+
+            B. The css file was place inside a the wwwroot/css folder structure because it is the desginated location for all public files.
+            By placing it here, it allows for public access of clients web browers. We put it inside a css folder to make it easy to locate and helps keep things organized.
+        </p>
+    </footer>
+</body>
+</html>

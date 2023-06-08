@@ -1,0 +1,30 @@
+﻿@model Lab3.Models.Student
+
+@{
+    ViewData["Title"] = "Display Student";
+}
+
+<h1>Your Favorite Student</h1>
+
+<table>
+    <tr>
+        <td>First Name:</td>
+        <td>@Model.FirstName</td>
+    </tr>
+    <tr>
+        <td>Last Name:</td>
+        <td>@Model.LastName</td>
+    </tr>
+    <tr>
+        <td>Student ID:</td>
+        <td>@Model.StudentId</td>
+    </tr>
+    <tr>
+        <td>Email Address:</td>
+        <td>@Model.EmailAddress</td>
+    </tr>
+    <tr>
+        <td>Description:</td>
+        <td>@Model.Description</td>
+    </tr>
+</table>

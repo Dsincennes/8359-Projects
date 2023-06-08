@@ -1,0 +1,37 @@
+﻿@model Lab3.Models.Student
+
+@{
+    ViewData["Title"] = "Create Student";
+}
+
+<h1>Create Your Favorite Student</h1>
+
+<form asp-controller="Home" asp-action="DisplayStudent" method="post">
+    <table>
+        <tr>
+            <td>First Name</td>
+            <td><input type="text" name="FirstName" required /></td>
+        </tr>
+        <tr>
+            <td>Last Name</td>
+            <td><input type="text" name="LastName" required /></td>
+        </tr>
+        <tr>
+            <td>Student ID</td>
+            <td><input type="number" name="StudentId" required /></td>
+        </tr>
+        <tr>
+            <td>Email Address</td>
+            <td><input type="email" name="EmailAddress" required /></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="password" name="Password" required /></td>
+        </tr>
+        <tr>
+            <td>Description of Student</td>
+            <td><input type="text" name="Description" /></td>
+        </tr>
+    </table>
+    <input type="submit" value="Create" />
+</form>
