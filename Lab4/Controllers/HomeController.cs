@@ -8,5 +8,11 @@ namespace Lab4.Controllers
         {
             return View();
         }
+
+        public IActionResult Error()
+        {
+            return View();
+        }
+
     }
 }
