@@ -7,7 +7,7 @@ namespace Lab4.Models
     public class SportClub
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [Display(Name = "Registration Number")]
+        [Display(Name = "Id")]
         [Required]
         public string ID { get; set; }
 

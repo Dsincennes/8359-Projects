@@ -5,21 +5,38 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href="~/css/site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
 </head>
 <body>
     <header>
-        <h1>Welcome to My Lab 4</h1>
-        <br />
-        <br />
-        @Html.ActionLink("Sport Club", "Index", "Home")
-        @Html.ActionLink("Fans", "Index", "Fans")
-        @Html.ActionLink("Sport Club", "Index", "SportClubs")
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Fans" asp-action="Index">Fans</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="SportClubs" asp-action="Index">Sport Club</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </header>
-    <div class="content">
-        @RenderBody()
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
     </div>
-    <footer>
-        <h3>Footer</h3>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            Donald Sincennes Lab 4 - Entity Framework
+        </div>
     </footer>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

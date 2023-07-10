@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Lab4.Data;
 using Lab4.Models;
+using Lab4.Models.ViewModels;
 
 namespace Lab4.Controllers
 {
@@ -20,9 +16,34 @@ namespace Lab4.Controllers
         }
 
         // GET: SportClubs
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string id)
         {
-              return View(await _context.SportClubs.ToListAsync());
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                var viewModel = new NewsViewModel
+                {
+                    SportClubs = await _context.SportClubs.ToListAsync(),
+                    Fans = await _context.Fans.ToListAsync(),
+                    Subscriptions = await _context.Subscriptions.ToListAsync(),
+                    SelectedSportClubId = id
+                };
+                return View(viewModel);
+
+            }
+            else
+            {
+                id = string.Empty;
+                var viewModel = new NewsViewModel
+                {
+                    SportClubs = await _context.SportClubs.ToListAsync(),
+                    Fans = await _context.Fans.ToListAsync(),
+                    Subscriptions = await _context.Subscriptions.ToListAsync(),
+                    SelectedSportClubId = id,
+                };
+                return View(viewModel);
+            }
+
         }
 
         // GET: SportClubs/Details/5
@@ -148,14 +169,14 @@ namespace Lab4.Controllers
             {
                 _context.SportClubs.Remove(sportClub);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool SportClubExists(string id)
         {
-          return _context.SportClubs.Any(e => e.ID == id);
+            return _context.SportClubs.Any(e => e.ID == id);
         }
     }
 }
