@@ -396,3 +396,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/Lab4/appsettings.Development.json
+/Lab4/appsettings.json
+/Lab4/appsettings.json
+/Lab4/appsettings.Development.json
