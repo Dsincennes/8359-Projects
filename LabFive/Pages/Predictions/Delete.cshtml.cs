@@ -1,25 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Lab5.Data;
-using Lab5.Models;
+using LabFive.Models;
 using Azure.Storage.Blobs;
 
-namespace Lab5.Pages.Predictions
+namespace LabFive.Pages.Predictions
 {
     public class DeleteModel : PageModel
     {
-        private readonly Lab5.Data.PredictionDataContext _context;
-
         private readonly BlobServiceClient _blobServiceClient;
         private readonly string earthContainerName = "earthimages";
         private readonly string computerContainerName = "computerimages";
 
-        public DeleteModel(Lab5.Data.PredictionDataContext context, BlobServiceClient blobServiceClient)
+        private readonly LabFive.Data.PredictionDataContext _context;
+
+        public DeleteModel(LabFive.Data.PredictionDataContext context, BlobServiceClient blobServiceClient)
         {
             _context = context;
             _blobServiceClient = blobServiceClient;
@@ -48,20 +43,27 @@ namespace Lab5.Pages.Predictions
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
-            var prediction = await _context.Predictions.FindAsync(Prediction.PredictionId);
+            if (id == null || _context.Predictions == null)
+            {
+                return NotFound();
+            }
+
+
+            var prediction = await _context.Predictions.FindAsync(id);
+
             if (prediction != null)
             {
-                // Delete the image from the corresponding container using the BlobServiceClient
-                var containerName = prediction.Question == Question.Earth ? earthContainerName : computerContainerName;
-                var containerClient = _blobServiceClient.GetBlobContainerClient("dsincenneslab5");
-                var blobClient = containerClient.GetBlobClient(prediction.FileName);
-                await blobClient.DeleteIfExistsAsync();
-
-                // Remove the prediction from the database
-                _context.Predictions.Remove(prediction);
+                Prediction = prediction;
+                _context.Predictions.Remove(Prediction);
                 await _context.SaveChangesAsync();
+
+                var containerName = Prediction.Question == Question.Earth ? earthContainerName : computerContainerName;
+                var blobClient = _blobServiceClient.GetBlobContainerClient(containerName)
+                                    .GetBlobClient(Prediction.FileName);
+
+                await blobClient.DeleteIfExistsAsync();
             }
 
             return RedirectToPage("./Index");
