@@ -47,6 +47,7 @@ namespace LabFive.Pages.Predictions
                 }
                 catch(RequestFailedException e)
                 {
+                    e.ToString();
                 }
                 var fileName = Path.GetFileName(Photo.FileName);
                 var containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
