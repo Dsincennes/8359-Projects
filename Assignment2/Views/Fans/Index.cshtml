@@ -1,0 +1,66 @@
+﻿@model List<Assignment2.Models.ViewModels.FanSubscriptionViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Fan Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var fanViewModel in Model)
+        {
+            <tr>
+                <td>@fanViewModel.Fan.FirstName @fanViewModel.Fan.LastName</td>
+                <td>
+                    <a asp-action="Index" asp-route-selectedFanId="@fanViewModel.Fan.Id">Select</a> |
+                    <a asp-action="Edit" asp-route-id="@fanViewModel.Fan.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@fanViewModel.Fan.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@fanViewModel.Fan.Id">Delete</a> |
+                    <a asp-action="EditSubscription" asp-route-fanId="@fanViewModel.Fan.Id">Edit Subscription</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@foreach (var fanViewModel in Model)
+{
+    if (!string.IsNullOrEmpty(fanViewModel.SelectedFanId))
+    {
+        var selectedFanViewModel = Model.FirstOrDefault(f => f.Fan.Id.ToString() == fanViewModel.SelectedFanId);
+        if (selectedFanViewModel != null)
+        {
+            <br />
+            <br />
+            <h3>Subscribed Clubs for @selectedFanViewModel.Fan.FirstName @selectedFanViewModel.Fan.LastName</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Subscribed Clubs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var subscription in selectedFanViewModel.Subscriptions)
+                    {
+                        <tr>
+                            <td>
+                                @subscription.Title
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    }
+}

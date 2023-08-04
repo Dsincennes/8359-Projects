@@ -1,0 +1,36 @@
+﻿@model Assignment2.Models.ViewModels.FanSubscriptionViewModel
+
+<h2>Edit Subscription for @Model.Fan.FirstName @Model.Fan.LastName</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Sport Club</th>
+            <th>Subscription Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var subscription in Model.AllSubscriptions)
+        {
+            <tr>
+                <td>@subscription.Title</td>
+                <td>
+                    @if (subscription.IsMember)
+                    {
+                        <form method="post" asp-action="Unregister" asp-route-fanId="@Model.Fan.Id" asp-route-sportClubId="@subscription.SportClubId">
+                            <button type="submit">Unregister</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="post" asp-action="Register" asp-route-fanId="@Model.Fan.Id" asp-route-sportClubId="@subscription.SportClubId">
+                            <button type="submit">Register</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index">Back to Index</a>

@@ -396,13 +396,3 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-/Lab4/appsettings.Development.json
-/Lab4/appsettings.json
-/Lab5/appsettings.Development.json
-/Lab5/appsettings.
-/LabFive/appsettings.Development.json
-/LabFive/appsettings.json
-/Lab6/appsettings.json
-/Lab6/appsettings.Development.json
-/Assignment2/appsettings.json
-/Assignment2/appsettings.Development.json

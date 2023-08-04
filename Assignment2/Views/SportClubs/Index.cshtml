@@ -1,0 +1,66 @@
+﻿@model Assignment2.Models.ViewModels.SportClubViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Sport Clubs</h1>
+<a asp-action="Create">Create New</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Fee</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var sportClub in Model.SportClubs)
+        {
+            <tr>
+                <td>@sportClub.Title</td>
+                <td>@sportClub.Fee.ToString("0.00")</td>
+                <td>
+                    <a asp-action="Index" asp-route-id="@sportClub.Id">Select</a> |
+                    <a asp-action="Edit" asp-route-id="@sportClub.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@sportClub.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@sportClub.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.SelectedSportClubId.Any())
+{
+    var selectedSportClub = Model.SportClubs.FirstOrDefault(sc => sc.Id.Equals(Model.SelectedSportClubId));
+    if (selectedSportClub != null)
+    {
+        <br />
+        <br />
+        <h3>Subscribers to the Sport Club</h3>
+        <h2>@selectedSportClub.Title</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var fanId in selectedSportClub.Subscriptions.Select(s => s.FanId))
+                {
+                    var fan = Model.Fans.FirstOrDefault(f => f.Id == fanId);
+                    if (fan != null)
+                    {
+                        <tr>
+                            <td>
+                                @fan.FullName
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+}
