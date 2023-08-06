@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "storage1": {
+      "secretStore": null,
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Storage/storageAccounts/dsincenneslab5",
+      "type": "storage.azure",
+      "connectionId": "ConnectionStrings:AzureBlobStorage",
+      "dynamicId": null
+    },
+    "mssql1": {
+      "secretStore": null,
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/dsincennessqlserver/databases/assignment2",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:DefaultConnection"
+    }
+  }
+}

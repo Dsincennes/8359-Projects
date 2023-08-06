@@ -7,6 +7,13 @@
 <h1>Sport Clubs</h1>
 <a asp-action="Create">Create New</a>
 
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -23,6 +30,7 @@
                 <td>@sportClub.Fee.ToString("0.00")</td>
                 <td>
                     <a asp-action="Index" asp-route-id="@sportClub.Id">Select</a> |
+                    <a href="/News?clubId=@sportClub.Id&sportClubFilter=@sportClub.Title">News</a> |
                     <a asp-action="Edit" asp-route-id="@sportClub.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@sportClub.Id">Details</a> |
                     <a asp-action="Delete" asp-route-id="@sportClub.Id">Delete</a>

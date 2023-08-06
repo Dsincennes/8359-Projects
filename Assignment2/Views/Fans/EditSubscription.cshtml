@@ -13,20 +13,22 @@
         @foreach (var registeredSubscription in Model.AllSubscriptions.Where(s => s.IsMember))
         {
             <tr>
-                <td>@subscription.Title</td>
+                <td>@registeredSubscription.Title</td>
                 <td>
-                    @if (subscription.IsMember)
-                    {
-                        <form method="post" asp-action="Unregister" asp-route-fanId="@Model.Fan.Id" asp-route-sportClubId="@subscription.SportClubId">
-                            <button type="submit">Unregister</button>
-                        </form>
-                    }
-                    else
-                    {
-                        <form method="post" asp-action="Register" asp-route-fanId="@Model.Fan.Id" asp-route-sportClubId="@subscription.SportClubId">
-                            <button type="submit">Register</button>
-                        </form>
-                    }
+                    <form method="post" asp-action="Unregister" asp-route-fanId="@Model.Fan.Id" asp-route-sportClubId="@registeredSubscription.SportClubId">
+                        <button type="submit">Unregister</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        @foreach (var unregisteredSubscription in Model.AllSubscriptions.Where(s => !s.IsMember))
+        {
+            <tr>
+                <td>@unregisteredSubscription.Title</td>
+                <td>
+                    <form method="post" asp-action="Register" asp-route-fanId="@Model.Fan.Id" asp-route-sportClubId="@unregisteredSubscription.SportClubId">
+                        <button type="submit">Register</button>
+                    </form>
                 </td>
             </tr>
         }

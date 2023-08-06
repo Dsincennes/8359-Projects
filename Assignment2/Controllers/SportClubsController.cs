@@ -45,6 +45,26 @@ namespace Assignment2.Controllers
             }
 
         }
+        public async Task<IActionResult> News(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var selectedSportClub = await _context.SportClubs.FindAsync(id);
+            if (selectedSportClub == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["SelectedSportClub"] = selectedSportClub;
+
+            IQueryable<News> newsQuery = _context.News.Where(n => n.SportClubs.ToString() == selectedSportClub.Title);
+            var newsItems = await newsQuery.ToListAsync();
+
+            return RedirectToAction("Index", "News", new { sportClub = selectedSportClub.Title, area = "" });
+        }
 
         // GET: SportClubs/Details/5
         public async Task<IActionResult> Details(string id)
@@ -164,7 +184,19 @@ namespace Assignment2.Controllers
             {
                 return Problem("Entity set 'SportsDbContext.SportClubs'  is null.");
             }
+
             var sportClub = await _context.SportClubs.FindAsync(id);
+
+            var newsImages = await _context.News
+                .Where(news => news.SportClubs == Enum.Parse<SportClubs>(sportClub.Title))
+                .ToListAsync();
+
+            if (newsImages.Count > 0)
+            {
+                TempData["ErrorMessage"] = "Cannot delete this Sport Club because it has associated news images.";
+                return RedirectToAction(nameof(Index));
+            }
+
             if (sportClub != null)
             {
                 _context.SportClubs.Remove(sportClub);
