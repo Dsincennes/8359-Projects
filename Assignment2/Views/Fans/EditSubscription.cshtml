@@ -10,7 +10,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var subscription in Model.AllSubscriptions)
+        @foreach (var registeredSubscription in Model.AllSubscriptions.Where(s => s.IsMember))
         {
             <tr>
                 <td>@subscription.Title</td>
