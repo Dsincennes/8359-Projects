@@ -21,5 +21,11 @@ namespace Assignment2.Models
         public decimal Fee { get; set; }
 
         public ICollection<Subscription> Subscriptions { get; set; }
+
+        override
+        public String ToString()
+        {
+            return Title;
+        }
     }
 }

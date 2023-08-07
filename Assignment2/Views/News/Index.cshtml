@@ -4,7 +4,11 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+@{
+    string sportClubTitle = Model.FirstOrDefault()?.SportClubs.ToString();
+}
+
+<h1>News for @sportClubTitle SportsClub</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
